@@ -7,7 +7,7 @@ gameover = 0
 while not gameover:
     number = random.randint(0,20);
     guesses = 0
-    
+
     while True:
         guesses += 1
         guess = input("What's your guess? ")
