@@ -1,8 +1,10 @@
-from cryptography.fernet import Fernet
-
+import os, base64
+from cryptography.fernet import Fernet, MultiFernet
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 # def write_key():
-#     key  = Fernet.generate_key();
+#     key  = os.urandom(16)
 #     with open('key.key','wb') as f:
 #         f.write(key)
 
@@ -12,9 +14,15 @@ def load_key():
     with open('key.key','rb') as f:
         return f.read()
 
-key = load_key()
-fer = Fernet(key)
+
+# Get master password
 master_pwd = input("What is the master password? ")
+
+# Generate key from master password
+salt = load_key()
+kdf = PBKDF2HMAC(hashes.SHA256,length=32,salt=salt,iterations=100000)
+key = base64.urlsafe_b64encode(kdf.derive(master_pwd.encode()))
+fer = Fernet(key)
 
 def view():
     with open('paswords.txt','r') as f:

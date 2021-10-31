@@ -7,3 +7,7 @@ Generate random passwords using random module. Including uppercase, lowercase, n
 ### 2. Number Guessing game
 
 Basic game for guessing the randomly selected number.
+
+### 3. Password Manager
+
+A simple password manager which stores added passwords encrypting them using Fernet from Cryptography module. SHA256 encoding.
